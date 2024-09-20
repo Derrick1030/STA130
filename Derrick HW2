@@ -1,0 +1,16 @@
+import plotly.graph_objects as go
+
+x_data = [0, 1, 2, 3, 4, 5]
+y_data = [0, 1, 4, 9, 16, 25]
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers', name='y = x^2'))
+
+fig.update_layout(
+    title="Sample Plotly Line Graph Derrick",
+    xaxis_title="X Axis",
+    yaxis_title="Y Axis"
+)
+
+fig.show(renderer="png")
