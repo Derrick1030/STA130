@@ -1,0 +1,6 @@
+git init
+echo"#Derrick's Project">README.md
+git add README.md
+git commit -m "Initial commit by Derrick"
+git remote add origin https://github.com/Derrick/myproject.git
+git push -u origin main
