@@ -1,0 +1,125 @@
+Question 1:
+1. **Key factor for testable ideas**:
+   The key factor is *measurability*. An idea can be statistically tested if it framed in a way that allows for observable, quantifiable data to be collected and analyzed.
+
+2. **Criteria for a good null hypothesis**:
+   A good null hypothesis (Ho) should be *specific, testable, and falsifiable*. It must clearly state that no effect or relationship exissts between variables, providinbg a baseline assumption to challenge through data.
+
+3. **Difference between null and alteranative hypotheses**:
+   -**Null hypothesis (Ho)**: Assumes no effect or difference, serving as the default position to be tested.
+   -**Alternative hypothesis (H1)**: Proposes that there is an effect or difference. The goal of hypothesis thesting is to determine whether the evidence is strong enough to reject the null in favor of the alternative.
+
+Question 2:
+1. **Polulation Parameter (e.g., \( \mu \)or \( \mu_0 \))**:
+   This represents the true value or characteristic of the entire population we are studing, like the average height of all people in Toronto.
+
+2. **Sample Statistic (e.g., \( \bar{x} \))**:
+   This is a measurement based on a sample (a subset) from the polulation, like the average height of 100 randomly chosen people from Toronto.
+
+3. **Purpose of Hypothesis Testing**:
+   When we conduct a hypothesis test, we use sample statistics (like \( \bar{x} \)) to **make inferences about the population parameter** (like \( \mu \)). However, our conclusions are always about the population, not just the sample.
+
+4. **Concepts Explained**:
+   - **\( x_i \)'s**: Individual data points in the sample.
+   - **\( \bar{x} \)**: The average of the sample data points.
+   - **\( \mu \)**: The true average of the population (unknown and what we are trying to estimate or test).
+   -**\( \mu_0 \)**: The hypothesized population mean under the null hypothesis.
+
+Question 3:
+When calculating a **p-value**, We **assume the null hypothesis is true** because the goal is to determine how likely the oberved data (or something more extreme) would to be if there were truly **no effect or difference**.
+
+1. **Imagining the null hypothesis world**:
+   This means we temoporarily believe the null hypothesis (Ho) is correct_there is no real relationship, effect, or difference in the population.
+
+2. **Why**:
+   By assuming the null is true, we can calculate the **probability (p-value)** of getting our sample results (or more extreme ones) just by random chance. This helps us evaluate whether the data we collected is consitehnt with a "no-effect" world or if the data suggests the null hypothesis is unlikely.
+
+3. **How**:
+   If the p-value is very small ( usually below 0.05), it suggests that it would be quite rare to observe our data if the null hypothesis were true. In that case, we might decide ton **reject the null hypothesis** and conclude that there is evidence for the alternative hypothesis.
+
+Question 4:
+A smaller **p-value** suggests that the data we observed would be very unlikely if the **null hypothesis (Ho)** were true. This makes the null hypothesis look more "ridiculous" because it implies that it is highly improbable that our data could occur by random chance under the assumption that there is no real effect or difference.
+
+1. **"Ridiculous" null hypothesis**:
+   As the p-value gets smaller, it becomes harder to believe the null hypothesis is true. This is because the probability of obtaining the observed data purely by chance is so low that it seems unreasonable to maintain the assumption of no eeffect.
+
+Question 5:
+To simulate a **p-value** using the "50/50 coin-flipping" model, we assume that each couple tilts their head left or right with equal probability (50/50). In other words, the head tilt is like flipping a fair coin-heads means "right tilt," tails means "left tilt."
+
+Our goal is to calculate the probability of observing **80 or more couples tilting right** out of 124, asuumming that the **null hypothesis (Ho)** is true. This can be treated as a **binomial probability problem**.
+
+---
+
+### Steps to simulate the p-value:
+
+1. **Null Hypothesis (Ho):**
+   The population has no preference for left or right tilt. Each couple has a 50% chance of tilting right.
+
+2. **Observed outcome:**
+   - Number of couples: 124
+   - Couples tilting right: 80 (or more)
+
+3. **Binomial Model:**
+   - **n = 124** (number of couples)
+   - **p = 0.5** (probability of right tilt under Ho)
+   - Calculate the probability of observing **80 or more right tilts**.
+
+---
+
+### Python code to Simulate p-value:
+
+'''pythone
+from scipy.stats import binom
+
+# Parameters
+n = 124 # Total number of couples
+p = 0.5 # Probability of right tilt under Ho
+x = 80  # Observed number of right tilts
+
+# Calculate p-value (P(X >= 80) under Ho)
+p_value = binom.sf(x - 1, n, p) # Survival function P(X >= x)
+
+print(f"P-value: {p-value}")
+
+|p-value|Evidence|
+|-|-|
+|$$p > 0.1$$|No evidence against the null hypothesis|
+|$$0.1 \ge p > 0.05$$|Weak evidence against the null hypothesis|
+|$$0.05 \ge p > 0.01$$|Moderate evidence against the null hypothesis|
+|$$0.01 \ge p > 0.001$$|Strong evidence against the null hypothesis|
+|$$0.001 \ge p$$|Very strong evidence against the null hypothesis|
+
+Question 6:
+A smaller p-value cannot definitively prove that the **null hypothesis (Ho)** is false. Hypothesis testing is about evaluating the strengeth of evidence, not proving something with certainty.
+
+Question 7:
+Code for Two-Tailed Test(from Week 5 TUT Demo II):
+
+from scipy.stats import norm
+
+# Observed statistics
+observed_mean = 72
+null_mean = 70 # Expected mean under Ho
+std_dev = 10   # Standard deviation
+n = 30         # Sample size
+
+# Compute the z-score 
+z_score = (observed_mean - null_mean) / (std_dev / (n ** 0.5))
+
+# Two-tailed p-value
+p_value = 2 * norm.sf(abs(z_score)) # sf() computes P(Z > z)
+print(f"Two- tailed p-value: {p_value}")
+
+Question 8:
+from scipy.stats import binom
+
+# Parameters 
+n = 80 # Total number of students
+p = 0.5 # Probability of correct guess under Ho
+x = 49 # Observed number of correct identification s
+
+# Calculate the one-tailed p-value (P(X >= 49) under Ho)
+p_value = binom.sf(x - 1, n, p) # sf() computes the survival function P(X >= x)
+
+print(f"One-tailed p-value: {p_value}")
+
